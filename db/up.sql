@@ -1,0 +1,14 @@
+CREATE DATABASE dev;
+USE dev;
+CREATE TABLE IF NOT EXISTS Users
+(
+    Id          VARCHAR(150) NOT NULL,
+    Username    VARCHAR(150) NOT NULL,
+    FirstName   VARCHAR(150),
+    LastName    VARCHAR(150),
+    Created     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Updated     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                              ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (Id),
+    UNIQUE (Username)
+);
