@@ -9,5 +9,5 @@ To get started, fork this repo and rename it something suitable for your context
 $ ./rename_project.sh <project_name>
 ```
 
-Run `go mod tidy` to clean up dependencies.
+Run `$ go mod tidy` to clean up dependencies.
 
