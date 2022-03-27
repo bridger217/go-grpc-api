@@ -90,7 +90,20 @@ $ ./bin/server
 
 Next, send an authenticated curl request that will register our Firebase user with the service:
 ```
-$ 
+$ curl -X POST localhost:8080/v1/users \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"username": "test", "firstName": "test", "lastName": "user"}'
+```
+
+You should receieve a response like:
+```
+{"id":"3PS5ssaJYKaltvh3PuvqFpoBJgU2","username":"test","firstName":"test", "lastName":"user"}
+```
+
+To confirm the user is persisted, you can run:
+```
+$ mysql -u root -p
+mysql> SELECT * FROM dev.Users;
 ```
 
 ### Thanks
