@@ -1,0 +1,39 @@
+syntax = "proto3";
+option go_package = "github.com/bridger217/go-grpc-api/pkg/api/v1";
+package v1;
+
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+import "google/api/field_behavior.proto";
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (User) {
+        option (google.api.http) = {
+            post: "/v1/users"
+            body: "user"
+        };
+        option (google.api.method_signature) = "user";
+    }
+
+    rpc GetUser(GetUserRequest) returns (User) {
+        option (google.api.http) = {
+          get: "/v1/users/{id}"
+        };
+        option (google.api.method_signature) = "id";
+      }
+}
+
+message User {
+    string id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+    string username = 2;
+    string first_name = 3;
+    string last_name = 4;
+}
+
+message CreateUserRequest {
+    User user = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetUserRequest {
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+}

@@ -1,0 +1,12 @@
+# Go binaries
+server/cmd/server/server
+server/bin
+
+# vscode stuff
+server/cmd/server/__debug_bin
+.vscode
+
+# terraform
+server/deploy/.terraform
+server/deploy/.*tfstate.*
+server/deploy/.terraform.lock.hcl
