@@ -106,5 +106,10 @@ $ mysql -u root -p
 mysql> SELECT * FROM dev.Users;
 ```
 
+Now that the scaffolding is working, start developing your app!
+
+### Feedback
+Bugs, changes, or improvements? Feel free to reach out and make a pull request.
+
 ### Thanks
 TODO
