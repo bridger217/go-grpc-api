@@ -26,12 +26,12 @@ $ FIREBASE_JSON=$(base64 ~/.project_key.json)
 
 ### Step 3 - Set up the database
 This project uses mySQL for storage. You need to install:
-- The [daemon](https://dev.mysql.com/downloads/mysql/))
+- The [daemon](https://dev.mysql.com/downloads/mysql/)
 - The [shell](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install.html)
 
 Once you do, create a local mysql user for your server to identify as:
 ```
-$ mysql
+$ mysql -u root -p 
 mysql> CREATE USER 'db_user' IDENTIFIED BY 'db_password';
 ```
 
@@ -44,9 +44,9 @@ $ DB_IP_ADDR=localhost:3306 # (default port for mySQL)
 
 Once you do, start the daeomon (in macOS, you do it in system preferences). Then, initialize a dev database for testing:
 ```
-$ sudo mysql < db/up.sql
+$ mysql -u root -p < db/up.sql
 ```
-If you want to bring down the database, run `$ sudo mysql < db/down.sql` (Note: this deletes all data in the database).
+If you want to bring down the database, run `$ mysql -u root -p < db/down.sql` (Note: this deletes all data in the database).
 
 ### Step 4 - Build the server
 If all goes well, you can use make to compile the go code:
