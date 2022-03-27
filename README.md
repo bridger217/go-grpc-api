@@ -4,6 +4,8 @@ This is starter code for a user-management microservice written in go. It uses g
 ## Set up dependencies
 This is a guide to running the app in a local sandbox. This will let you build on top of this framework. When you're ready to deploy it, follow this guide (TODO). The only prerequiesite is to have go installed.
 
+Note that configuration that contains sensative data is stored in environment variables, so they can more easily be used as secrets in a k8s cluster.
+
 ### Step 1 - Renaming the project
 To get started, clone this repo and rename it something suitable for your context. Then, run the rename script with your new project name, often of the pattern `github.com/<username>/<repository_name>`:
 ```
@@ -21,7 +23,7 @@ In order for your code to authenticate inbound requests, it needs to authenticat
 
 Finally, store the encoded API key in a special environment variable so the server can authenticate with firebase:
 ```
-$ FIREBASE_JSON=$(base64 ~/.project_key.json)
+$ export FIREBASE_JSON=$(base64 ~/.project_key.json)
 ```
 
 ### Step 3 - Set up the database
@@ -38,10 +40,10 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'%';
 
 Then, set the proper environment variables for your code to authenticate as this user:
 ```
-$ DB_USER=<db_user>
-$ DB_PASSWORD=<db_password>
-$ DB_IP_ADDR=localhost:3306 # (default port for mySQL)
-$ DB_NAME=dev # we are using the dev instance
+$ export DB_USER=<db_user>
+$ export DB_PASSWORD=<db_password>
+$ export DB_IP_ADDR=localhost:3306 # (default port for mySQL)
+$ export DB_NAME=dev # we are using the dev instance
 ```
 
 Once you do, start the daeomon (in macOS, you do it in system preferences). Then, initialize a dev database for testing:
@@ -63,13 +65,13 @@ Now the all the dependencies are set up, we will test the CreateUser route of th
 In the Firebase console, navigate to (Authentication > Users > Add user). From there, choose a fake email/password and create the user.
 
 ### Step 2 - Generate a Firebase auth token
-In this stage, we will use a test UI to authenticate our client with Firebase so that we can communicate with the app. To do so, head over to IllDepence@'s [token.html](https://gist.github.com/IllDepence/7c201287af52bd1f78bed65ec7737e84), and download the file. You need to change to fields in the html:
+In this stage, we will use a test UI to authenticate our client with Firebase so that we can communicate with the app. To do so, head over to IllDepence@'s [token.html](https://gist.github.com/IllDepence/7c201287af52bd1f78bed65ec7737e84), and download the file. You need to change two fields in the html:
 1. config.projectId -- Found in the Firebase console (Project settings > General)
 2. config.apiKey -- Found in the GCP console. Navigate through Firebase console (Project settings > Service accounts > All service accounts) which should take you to GCP. Then, in GCP go to "Credentials" and you will find your default browser key.
 
 Now that your test frontend is set up, open the html in a browser and sign in with the user credentials from step 1. Once you've signed in, click "show ID token" and copy the token into an environment variable:
 ```
-$ TOKEN=<token_from_ui>
+$ export TOKEN=<token_from_ui>
 ```
 
 ### Step 3 - Run the thing
