@@ -2,7 +2,7 @@
 This is starter code for a user-management microservice written in go. It uses gRPC and protocol buffers internally, while exposing a REST API. Firebase manages authentication, and mySQL is used for persistence.
 
 ## Set up dependencies
-This is a guide to running the app in a local sandbox. This will let you build on top of this framework. When you're ready to deploy it, follow this guide (TODO). The only prerequiesite is to have go installed.
+This is a guide to running the app in a local sandbox. This will let you build on top of this framework. When you're ready to deploy it, follow this guide (TODO). The only prerequiesite is to have go and Make installed.
 
 Note that configuration that contains sensative data is stored in environment variables, so they can more easily be used as secrets in a k8s cluster.
 
