@@ -19,5 +19,8 @@ user-service: install-tools
 	--openapiv2_out=docs/api/v1 --openapiv2_opt logtostderr=true \
 	user_service.proto
 
+clean:
+	@rm -rf bin
+
 server: user-service
 	@go build -o bin/server cmd/server/main.go

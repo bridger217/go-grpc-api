@@ -46,10 +46,11 @@ func RunServer() error {
 	var eMan env.EnvManager
 
 	// DB setup
-	dbStr := fmt.Sprintf("%s:%s@tcp(%s)/bnb-sql?parseTime=true",
+	dbStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true",
 		eMan.GetDbUser(),
 		eMan.GetDbPassword(),
-		eMan.GetDbIpAddr())
+		eMan.GetDbIpAddr(),
+		eMan.GetDbName())
 	db, err := sql.Open("mysql", dbStr)
 	defer db.Close()
 	if err != nil {

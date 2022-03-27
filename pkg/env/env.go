@@ -8,6 +8,7 @@ const (
 	ENV_DB_USER       = "DB_USER"
 	ENV_DB_PASSWORD   = "DB_PASSWORD"
 	ENV_DB_IP_ADDR    = "DB_IP_ADDR"
+	ENV_DB_NAME       = "DB_NAME"
 )
 
 type EnvManager struct{}
@@ -26,4 +27,8 @@ func (m *EnvManager) GetDbPassword() string {
 
 func (m *EnvManager) GetDbIpAddr() string {
 	return os.Getenv(ENV_DB_IP_ADDR)
+}
+
+func (m *EnvManager) GetDbName() string {
+	return os.Getenv(ENV_DB_NAME)
 }

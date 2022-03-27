@@ -33,9 +33,6 @@ func (a *Authenticator) Authenticate(ctx context.Context) (context.Context, erro
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %v", err)
 	}
 
-	// // Not sure if this would be needed:
-	// // grpc_ctxtags.Extract(ctx).Set("auth.sub", userClaimFromToken(tokenInfo))
-
 	newCtx := middleware.AddAuthTokenToContext(ctx, authedToken)
 
 	return newCtx, nil

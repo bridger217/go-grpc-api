@@ -29,10 +29,11 @@ This project uses mySQL for storage. You need to install:
 - The [daemon](https://dev.mysql.com/downloads/mysql/)
 - The [shell](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install.html)
 
-Once you do, create a local mysql user for your server to identify as:
+Once you do, create a local mysql user for your server and grant it root privledges:
 ```
 $ mysql -u root -p 
 mysql> CREATE USER 'db_user' IDENTIFIED BY 'db_password';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'%';
 ```
 
 Then, set the proper environment variables for your code to authenticate as this user:
@@ -40,6 +41,7 @@ Then, set the proper environment variables for your code to authenticate as this
 $ DB_USER=<db_user>
 $ DB_PASSWORD=<db_password>
 $ DB_IP_ADDR=localhost:3306 # (default port for mySQL)
+$ DB_NAME=dev # we are using the dev instance
 ```
 
 Once you do, start the daeomon (in macOS, you do it in system preferences). Then, initialize a dev database for testing:
@@ -52,6 +54,41 @@ If you want to bring down the database, run `$ mysql -u root -p < db/down.sql` (
 If all goes well, you can use make to compile the go code:
 ```
 $ make server
+```
+
+## Testing the service
+Now the all the dependencies are set up, we will test the CreateUser route of the API.
+
+### Step 1 - Create Firebase user
+In the Firebase console, navigate to (Authentication > Users > Add user). From there, choose a fake email/password and create the user.
+
+### Step 2 - Generate a Firebase auth token
+In this stage, we will use a test UI to authenticate our client with Firebase so that we can communicate with the app. To do so, head over to IllDepence@'s [token.html](https://gist.github.com/IllDepence/7c201287af52bd1f78bed65ec7737e84), and download the file. You need to change to fields in the html:
+1. config.projectId -- Found in the Firebase console (Project settings > General)
+2. config.apiKey -- Found in the GCP console. Navigate through Firebase console (Project settings > Service accounts > All service accounts) which should take you to GCP. Then, in GCP go to "Credentials" and you will find your default browser key.
+
+Now that your test frontend is set up, open the html in a browser and sign in with the user credentials from step 1. Once you've signed in, click "show ID token" and copy the token into an environment variable:
+```
+$ TOKEN=<token_from_ui>
+```
+
+### Step 3 - Run the thing
+Now, we're ready to run the thing. Make sure you have all necessary env variables set:
+- FIREBASE_JSON
+- DB_USER
+- DB_PASSWORD
+- DB_IP_ADDR
+- DB_NAME
+- TOKEN
+
+Go ahead and run the server. By default it will bind to port 8080:
+```
+$ ./bin/server
+```
+
+Next, send an authenticated curl request that will register our Firebase user with the service:
+```
+$ 
 ```
 
 ### Thanks
