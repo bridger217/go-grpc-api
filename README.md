@@ -46,7 +46,7 @@ $ export DB_IP_ADDR=localhost:3306 # (default port for mySQL)
 $ export DB_NAME=dev # we are using the dev instance
 ```
 
-Once you do, start the daeomon (in macOS, you do it in system preferences). Then, initialize a dev database for testing:
+Once you do, start the daemon (in macOS, you do it in system preferences). Then, initialize a dev database for testing:
 ```
 $ mysql -u root -p < db/up.sql
 ```
