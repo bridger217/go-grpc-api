@@ -32,8 +32,8 @@ func RunServer() error {
 	ctx := context.Background()
 
 	var cfg Config
-	flag.StringVar(&cfg.GRPCPort, "grpc-port", "", "gRPC port to bind")
-	flag.StringVar(&cfg.HTTPPort, "http-port", "", "HTTP port to bind")
+	flag.StringVar(&cfg.GRPCPort, "grpc-port", "9090", "gRPC port to bind")
+	flag.StringVar(&cfg.HTTPPort, "http-port", "8080", "HTTP port to bind")
 	flag.Parse()
 
 	if len(cfg.GRPCPort) == 0 {
